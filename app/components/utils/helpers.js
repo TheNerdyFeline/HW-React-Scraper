@@ -6,8 +6,8 @@ let apiKey = "ff9b67cdcef449528c40fe593b7af9bc";
 
 // This function serves our purpose of running the query to geolocate.
 const helper = {
-    runQuery: (topic, start, end) => {
-	if(topic === undefined || start === undefined || end === undefined) {
+    runQuery: (queries) => {
+	/*if(topic === undefined || start === undefined || end === undefined) {
 	    console.log("empty search parameters");
 	} else {	
 	    console.log(topic, start, end);
@@ -30,7 +30,9 @@ const helper = {
 	    }).catch(function(err) {
 		console.log(err);
 	    });
-	}
+	    }*/
+	console.log("queries: ", queries);
+	axios.get("/api/scrape", queries);
     },
     
     // This function hits our own server to retrieve the record of query results

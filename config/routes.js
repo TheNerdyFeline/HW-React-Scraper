@@ -17,11 +17,12 @@ router.get("/", function(req, res) {
 });
 
 // query nyt
-router.get("/api/scrape", function(req, res) {{
+router.get("/api/scrape", function(req, res) {
+    console.log("routes running: ", req.body.topic);
     if(topic === undefined || start === undefined || end === undefined) {
 	console.log("empty search parameters");
     } else {	
-	console.log(topic, start, end);
+	
 	// Figure out the geolocation
 	const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + $.param({
 	    'api-key': apiKey,
@@ -34,14 +35,17 @@ router.get("/api/scrape", function(req, res) {{
 	    // If get get a result, return that result's formatted address property
 	    if (response.data.results[0]) {
 		console.log(response);
-		    //return response.data.results[0].formatted;
+		res.send(response);
+		//return response.data.results[0].formatted;
 	    }
 	    // If we don't get any results, return an empty string
 	    return "";
-	    }).catch(function(err) {
+	}).catch(function(err) {
 		console.log(err);
-	    });
+	});
+	
     }
+    
 });
 
 // save article to db

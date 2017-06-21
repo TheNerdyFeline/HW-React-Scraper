@@ -30,6 +30,7 @@ class Main extends Component {
     }
     
     callNYTimes(queries) {
+	helpers.runQuery(queries);
 	// if search is made or article saved update component
 /*	helpers.runQuery(this.state.search.topic, this.state.search.start, this.state.search.end).then(function(data) {
 	    if (data !== this.state.results) {
