@@ -39,9 +39,9 @@ db.once("open", function() {
 });
 
 // Import routes and give the server access to them.
-//var routes = require("./routes/routes.js");
+var routes = require("./config/routes.js");
 
-//app.use("/", routes);
+app.use("/", routes);
 
 // Listen on port 3000
 app.listen(PORT, function() {

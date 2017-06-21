@@ -16,7 +16,7 @@ var ArticleSchema = new Schema({
 	required: true
     },
     date: {
-	type: STRING,
+	type: String,
 	required: true
     },
     // This saves all note's ObjectId in array, ref refers to the Note model

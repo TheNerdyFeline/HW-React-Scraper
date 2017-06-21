@@ -1,0 +1,25 @@
+{this.props.results.map(function(search, i)
+
+{this.props.savedArticles.map(function(savedArt, i)
+
+// This function will respond to the user input
+    handleChange(e) {
+	this.setState({ [e.target.id]: e.target.value });
+	
+    }
+
+
+    // these functions will respond to the user inputs
+    handleTopicChange(e) {
+	console.log
+	this.setState({ topic: e.target.value });
+	
+	}
+    handleStartChange(e) {
+	this.setState({ start: e.target.value });
+	
+    }
+    handleEndChange(e) {
+	this.setState({ end: e.target.value });
+	
+    }
