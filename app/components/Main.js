@@ -91,7 +91,7 @@ class Main extends Component {
 	      
 	      <div className="row">
 		<div className="col-md-6">
-		  <Results />
+		  <Results results={this.state.results}/>
 		</div>
 	      </div>
 	      
