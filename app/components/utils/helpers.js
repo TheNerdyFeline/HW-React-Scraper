@@ -8,7 +8,6 @@ let apiKey = "ff9b67cdcef449528c40fe593b7af9bc";
 const helper = {
     runQuery: (queries) => {
 	if(queries.topic === undefined || queries.start === undefined || queries.end === undefined) {
-	    console.log("no search parameters and topic", queries.topic);
 	    console.log("empty search parameters");
 	    return "no articles found";
 	} else {	
@@ -20,13 +19,18 @@ const helper = {
 		'begin_date': queries.start + '0101',
 		'end_date': queries.end + '1231'
 	    });
-	    console.log(queryURL);
 	    return axios.get(queryURL).then(function(resp) {
 		console.log("query ran: ", resp.data.response.docs);
-		console.log(resp.data.response.docs.main);
+		//console.log(resp.data.response.docs);
+		let docs = resp.data.response.docs;
 		// If get get a result, return that result's formatted address property
-		if (resp.data.response.docs.length > 0) {
-		    return resp.data.response.docs;
+		if (docs.length > 0) {
+		    let articles = [];
+		    for(var i = 0; i < docs.length; i++) {
+			let singleArt = {title: docs[i].headline.main, date: docs[i].pub_date, url: docs[i].web_url};
+			articles.push(singleArt);
+		    }
+		    return articles;
 		}
 		// If we don't get any results, return an empty string
 		return "";

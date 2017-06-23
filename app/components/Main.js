@@ -34,7 +34,6 @@ class Main extends Component {
 
     componentDidUpdate(prevProps, prevState){
 	if (prevState.search != this.state.search){
-	    console.log('inside if of lifecycle evt');
 	    // if search is made or article saved update component
 	    helpers.runQuery(this.state.search).then(function(data) {
 		if (data !== this.state.results) {
@@ -63,15 +62,12 @@ class Main extends Component {
     callNYTimes(searchObj) {
 	//helpers.runQuery(queries);
 	console.log(searchObj);
-	this.setState({
-	    search: searchObj
-	});
+	this.setState({search: searchObj});
 	
 
 	
     }
     setSearch(search) {
-	console.log("search: ", search);
 	this.setState({search: search});
     }
     

@@ -15,7 +15,6 @@ class Search extends Component {
     }
     // When a user submits...
     onSubmitClick() {
-	console.log("search topic: ", this.state.search.topic);
 	/*this.props.callback({topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end});*/
 	// Set the parent to have the search terms
 	this.props.setSearch({search: {topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end}});
