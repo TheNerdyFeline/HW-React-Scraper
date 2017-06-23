@@ -47,21 +47,21 @@ class Main extends Component {
 		// after article is saved we update saved articles
 		helpers.getArticles().then(function(response) {
 		    console.log("Current Articles", response.data);			
-			console.log("Article", response.data);
+		    console.log("Article", response.data);
 		    
 		    this.setState({ articles: response.data });
 		    
 		}.bind(this));
 	    }.bind(this));
 	    
-	    }.bind(this));
+	}.bind(this));
 	console.log('im in the callback', this.state.search);
     }
     setSearch(search) {
 	console.log("search: ", search);
 	this.setState({search: search});
     }
-
+    
     render() {
 	return (
 	    <div className="container">

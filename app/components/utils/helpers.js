@@ -7,33 +7,36 @@ let apiKey = "ff9b67cdcef449528c40fe593b7af9bc";
 // This function serves our purpose of running the query to geolocate.
 const helper = {
     runQuery: (queries) => {
-	/*if(topic === undefined || start === undefined || end === undefined) {
+	if(queries.topic === undefined || queries.start === undefined || queries.end === undefined) {
+	    console.log("no search parameters and topic", queries.topic);
 	    console.log("empty search parameters");
+	    return "no articles found";
 	} else {	
-	    console.log(topic, start, end);
+	    console.log(queries.topic, queries.start, queries.end);
 	    // Figure out the geolocation
 	    const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + $.param({
 		'api-key': apiKey,
-		'q': topic,
-		'begin_date': start,
-		'end_date': end
+		'q': queries.topic,
+		'begin_date': queries.start,
+		'end_date': queries.end
 	    });
 	    console.log(queryURL);
 	    return axios.get(queryURL).then(function(response) {
 		// If get get a result, return that result's formatted address property
 		if (response.data.results[0]) {
-		    console.log(response);
-		    //return response.data.results[0].formatted;
+		    console.log("query ran: ", response);
+		    return response.data.results[0].formatted;
 		}
 		// If we don't get any results, return an empty string
 		return "";
 	    }).catch(function(err) {
 		console.log(err);
 	    });
-	    }*/
-	console.log("queries: ", queries);
-	axios.get("/api/scrape", queries);
+	}
+	//console.log("queries: ", queries);
+	//axios.get("/api/scrape", queries);
     },
+    
     
     // This function hits our own server to retrieve the record of query results
     getSavedArt: () => {

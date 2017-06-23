@@ -16,12 +16,10 @@ class Search extends Component {
     // When a user submits...
     onSubmitClick() {
 	console.log("search topic: ", this.state.search.topic);
-	// prevent the HTML from trying to submit a form if the user hits "Enter" instead of
-	// clicking the button
-	this.props.callback({topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end})
+	/*this.props.callback({topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end});*/
 	// Set the parent to have the search terms
-	/*this.props.setSearch({topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end});
-	this.setState({search: {topic: "", start: "", end: ""}});*/
+	this.props.setSearch({search: {topic: this.state.topic, start: this.state.start, end: this.state.end}});
+	this.setState({search: {topic:"", start:"", end:""}});
     }
     render() {
 	return (

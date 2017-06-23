@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
 });
 
 // query nyt
-router.get("/api/scrape", function(req, res) {
+/*router.get("/api/scrape", function(req, res) {
     console.log("routes running: ", req.body.topic);
     if(topic === undefined || start === undefined || end === undefined) {
 	console.log("empty search parameters");
@@ -46,7 +46,7 @@ router.get("/api/scrape", function(req, res) {
 	
     }
     
-});
+});*/
 
 // save article to db
 router.post("/api/saved", function(req, res) {
