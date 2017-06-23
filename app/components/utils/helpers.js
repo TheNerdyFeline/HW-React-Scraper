@@ -17,15 +17,16 @@ const helper = {
 	    const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + $.param({
 		'api-key': apiKey,
 		'q': queries.topic,
-		'begin_date': queries.start,
-		'end_date': queries.end
+		'begin_date': queries.start + '0101',
+		'end_date': queries.end + '1231'
 	    });
 	    console.log(queryURL);
-	    return axios.get(queryURL).then(function(response) {
+	    return axios.get(queryURL).then(function(resp) {
+		console.log("query ran: ", resp.data.response.docs);
+		console.log(resp.data.response.docs.main);
 		// If get get a result, return that result's formatted address property
-		if (response.data.results[0]) {
-		    console.log("query ran: ", response);
-		    return response.data.results[0].formatted;
+		if (resp.data.response.docs.length > 0) {
+		    return resp.data.response.docs;
 		}
 		// If we don't get any results, return an empty string
 		return "";

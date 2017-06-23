@@ -18,7 +18,8 @@ class Search extends Component {
 	console.log("search topic: ", this.state.search.topic);
 	/*this.props.callback({topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end});*/
 	// Set the parent to have the search terms
-	this.props.setSearch({search: {topic: this.state.topic, start: this.state.start, end: this.state.end}});
+	this.props.setSearch({search: {topic: this.state.search.topic, start: this.state.search.start, end: this.state.search.end}});
+	this.props.callNYTimes(this.state.search);
 	this.setState({search: {topic:"", start:"", end:""}});
     }
     render() {

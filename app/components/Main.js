@@ -18,6 +18,7 @@ class Main extends Component {
 	this.state = {search: {topic: "", start: "", end: ""}, results:[], savedArt: [{title: "", date: "", link:""}]};
 
 	this.setSearch = this.setSearch.bind(this);
+	this.callNYTimes = this.callNYTimes.bind(this);
     }
 
     componentDidMount() {
@@ -30,38 +31,50 @@ class Main extends Component {
 	    }
 	}.bind(this));
     }
-    
-    callNYTimes() {
-	//helpers.runQuery(queries);
-	console.log(this.state.search.start);
-	// if search is made or article saved update component
-	helpers.runQuery(this.state.search).then(function(data) {
-	    if (data !== this.state.results) {
-		console.log("data: ", data);
-		this.setState({ results: data });
-	    }
-	    // if user wants to save article, save it to db
-	    helpers.saveArticle(this.state.article).then(function() {
-		console.log("Updated!");
-		
-		// after article is saved we update saved articles
-		helpers.getArticles().then(function(response) {
-		    console.log("Current Articles", response.data);			
+
+    componentDidUpdate(prevProps, prevState){
+	if (prevState.search != this.state.search){
+	    console.log('inside if of lifecycle evt');
+	    // if search is made or article saved update component
+	    helpers.runQuery(this.state.search).then(function(data) {
+		if (data !== this.state.results) {
+		    console.log("data: ", data);
+		    this.setState({ results: data });
+		}
+		// if user wants to save article, save it to db
+		/*helpers.saveArticle(this.state.article).then(function() {
+		    console.log("Updated!");
+		    
+		    // after article is saved we update saved articles
+		    helpers.getArticles().then(function(response) {
+			console.log("Current Articles", response.data);			
 			console.log("Article", response.data);
-		    
-		    this.setState({ articles: response.data });
-		    
-		}.bind(this));
+			
+			this.setState({ articles: response.data });
+			
+		    }.bind(this));
+		}.bind(this));*/
+		
 	    }.bind(this));
-	    
-	    }.bind(this));
-	console.log('im in the callback', this.state.search);
+	    console.log('im in the callback', this.state.search);
+	}
+    }
+    
+    callNYTimes(searchObj) {
+	//helpers.runQuery(queries);
+	console.log(searchObj);
+	this.setState({
+	    search: searchObj
+	});
+	
+
+	
     }
     setSearch(search) {
 	console.log("search: ", search);
 	this.setState({search: search});
     }
-
+    
     render() {
 	return (
 	    <div className="container">
@@ -76,7 +89,7 @@ class Main extends Component {
 	      
 	      <div className="row">
 		<div className="col-md-6">
-		<Search setSearch={this.setSearch} callback={this.callNYTimes} />
+		  <Search setSearch={this.setSearch} callNYTimes={this.callNYTimes} />
 		</div>
 	      </div>
 	      
