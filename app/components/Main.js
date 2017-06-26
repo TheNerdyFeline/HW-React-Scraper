@@ -15,16 +15,16 @@ class Main extends Component {
     // this sets initial state of children
     constructor(props) {
 	super(props);	
-	this.state = {search: {topic: "", start: "", end: ""}, results:[], savedArt: [{title: "", date: "", link:""}]};
+	this.state = {search: {topic: "", start: "", end: ""}, results:[], savedArt:[]};
 
 	this.setSearch = this.setSearch.bind(this);
 	this.callNYTimes = this.callNYTimes.bind(this);
+	this.saveArticle = this.saveArticle.bind(this);
     }
 
     componentDidMount() {
 	// get saved articles
 	helpers.getSavedArt().then(function(response) {
-	    console.log(response);
 	    if(response !== this.state.savedArt) {
 		console.log("saved articles", response.data);
 		this.setState({ savedArt: response.data});
@@ -37,36 +37,32 @@ class Main extends Component {
 	    // if search is made or article saved update component
 	    helpers.runQuery(this.state.search).then(function(data) {
 		if (data !== this.state.results) {
-		    console.log("data: ", data);
 		    this.setState({ results: data });
 		}
-		// if user wants to save article, save it to db
-		/*helpers.saveArticle(this.state.article).then(function() {
-		    console.log("Updated!");
-		    
-		    // after article is saved we update saved articles
-		    helpers.getArticles().then(function(response) {
-			console.log("Current Articles", response.data);			
-			console.log("Article", response.data);
-			
-			this.setState({ articles: response.data });
-			
-		    }.bind(this));
-		}.bind(this));*/
-		
 	    }.bind(this));
-	    console.log('im in the callback', this.state.search);
 	}
     }
     
     callNYTimes(searchObj) {
 	//helpers.runQuery(queries);
-	console.log(searchObj);
-	this.setState({search: searchObj});
-	
-
-	
+	this.setState({search: searchObj});	
     }
+
+    saveArticle(article) {
+	console.log(article);
+	this.setState({article: article});
+	// if user wants to save article, save it to db
+	helpers.postArticle(this.state.article).then(function() {
+	    console.log("Updated!");
+	}.bind(this));
+	// after article is saved we update saved articles
+	helpers.getSavedArt().then(function(response) {
+	    console.log("Current Articles", response.data);			
+	    console.log("Article", response.data);	
+	    this.setState({ articles: response.data });
+	}.bind(this));
+    }
+    
     setSearch(search) {
 	this.setState({search: search});
     }
@@ -91,7 +87,7 @@ class Main extends Component {
 	      
 	      <div className="row">
 		<div className="col-md-6">
-		  <Results results={this.state.results}/>
+		  <Results results={this.state.results} saveArticle={this.saveArticle}/>
 		</div>
 	      </div>
 	      

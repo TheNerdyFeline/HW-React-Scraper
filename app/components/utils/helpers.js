@@ -11,7 +11,6 @@ const helper = {
 	    console.log("empty search parameters");
 	    return "no articles found";
 	} else {	
-	    console.log(queries.topic, queries.start, queries.end);
 	    // Figure out the geolocation
 	    const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + $.param({
 		'api-key': apiKey,
@@ -20,7 +19,6 @@ const helper = {
 		'end_date': queries.end + '1231'
 	    });
 	    return axios.get(queryURL).then(function(resp) {
-		console.log("query ran: ", resp.data.response.docs);
 		//console.log(resp.data.response.docs);
 		let docs = resp.data.response.docs;
 		// If get get a result, return that result's formatted address property
@@ -49,7 +47,8 @@ const helper = {
     },
     
     // This function posts new articles to our database.
-    postarticle: (article) => {
+    postArticle: (article) => {
+	console.log('saving article');
 	return axios.post("/api/saved", { article: article });
     }
 };
