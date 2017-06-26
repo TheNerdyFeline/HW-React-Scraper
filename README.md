@@ -9,4 +9,5 @@ This is my first react project, and it is composed of 3 components search, resul
 * Javascript
 * Express Sever
 * Routing
-
+* MongoDB
+* Webpack
